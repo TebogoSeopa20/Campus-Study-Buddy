@@ -107,6 +107,7 @@ h1, h2, h3, h4, h5 {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
 }
 
 .btn-primary {
@@ -116,6 +117,7 @@ h1, h2, h3, h4, h5 {
 
 .btn-primary:hover {
   background-color: var(--study-blue);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .btn-outline {
@@ -126,6 +128,7 @@ h1, h2, h3, h4, h5 {
 
 .btn-outline:hover {
   background-color: var(--study-light-blue);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 }
 
 .mobile-menu {
@@ -496,6 +499,19 @@ h1, h2, h3, h4, h5 {
     flex-direction: column;
     align-items: center;
   }
+
+  /* Auth forms responsive adjustments */
+  .auth-card {
+    padding: 1.5rem;
+  }
+
+  .role-selection {
+    flex-direction: column;
+  }
+
+  .role-option {
+    width: 100%;
+  }
 }
 
 @keyframes fadeIn {
@@ -536,3 +552,438 @@ h1, h2, h3, h4, h5 {
   gap: 0.5rem;
 }
 
+/* --- New styles for Login/Signup/Dashboard pages --- */
+
+.auth-main, .dashboard-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 120px); /* Adjust based on navbar/footer height */
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--study-light-blue) 0%, #f8fafc 100%);
+}
+
+.auth-container, .dashboard-container {
+    max-width: 500px; /* Slightly wider for better form layout */
+    width: 100%;
+    margin: auto;
+}
+
+.auth-card, .dashboard-card {
+    background-color: var(--background);
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    box-shadow: 0 10px 20px rgba(30, 64, 175, 0.1);
+    text-align: center;
+    border: 1px solid var(--study-light-blue);
+}
+
+.auth-card h2, .dashboard-card h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem; /* Reduced margin for intro paragraph */
+    color: var(--study-dark);
+}
+
+.signup-intro {
+    font-size: 1rem;
+    color: var(--muted-foreground);
+    margin-bottom: 1.5rem;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* Increased gap for better spacing */
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--foreground);
+}
+
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="text"],
+.form-group input[type="tel"] { /* Added type="tel" for phone input */
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    color: var(--foreground);
+    background-color: var(--input);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="text"]:focus,
+.form-group input[type="tel"]:focus {
+    outline: none;
+    border-color: var(--study-accent);
+    box-shadow: 0 0 0 3px var(--input-focus);
+}
+
+.form-group input::placeholder {
+    color: var(--input-placeholder);
+}
+
+.btn-full-width {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.error-message {
+    color: var(--form-error);
+    font-size: 0.85rem; /* Slightly smaller for error messages */
+    margin-top: 0.25rem; /* Closer to the input */
+    min-height: 1.1rem; /* Reserve space to prevent layout shift */
+    text-align: left;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease;
+}
+
+.error-message:not(:empty) {
+    opacity: 1; /* Show if not empty */
+}
+
+.auth-switch {
+    font-size: 0.95rem;
+    color: var(--muted-foreground);
+    margin-top: 1rem; /* Added margin for separation */
+}
+
+.auth-switch a {
+    color: var(--study-accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+.dashboard-card p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--muted-foreground);
+}
+
+.dashboard-card p:last-of-type {
+    margin-bottom: 2rem;
+}
+
+.dashboard-cta {
+    margin-top: 1.5rem;
+}
+
+/* --- Specific styles for the new Signup page elements --- */
+
+.form-step {
+    display: none; /* Hidden by default */
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.form-step.active {
+    display: block; /* Shown when active */
+}
+
+.step-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--study-dark);
+}
+
+.step-separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--muted-foreground);
+    font-size: 0.9rem;
+}
+
+.step-separator::before,
+.step-separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border);
+}
+
+.step-separator:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.step-separator:not(:empty)::after {
+    margin-left: .5em;
+}
+
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.form-navigation .btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+}
+
+
+.role-selection {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    justify-content: center; /* Center the role options */
+}
+
+.role-option {
+    flex: 1;
+    max-width: 180px; /* Max width for each option */
+    background-color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden; /* Hide default radio button */
+}
+
+.role-option:hover {
+    border-color: var(--study-accent);
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.1);
+}
+
+.role-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.role-option input[type="radio"]:checked + label {
+    background-color: var(--study-light-blue);
+    border-color: var(--study-blue);
+    color: var(--study-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(59, 130, 246, 0.2);
+}
+
+.role-option label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--foreground);
+    transition: all 0.2s ease;
+}
+
+.role-option label i {
+    font-size: 2.5rem;
+    color: var(--muted-foreground);
+    transition: color 0.2s ease;
+}
+
+.role-option input[type="radio"]:checked + label i {
+    color: var(--study-blue);
+}
+
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper input {
+    padding-right: 3rem; /* Make space for the toggle button */
+}
+
+.toggle-password-visibility {
+    position: absolute;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    color: var(--muted-foreground);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.25rem;
+    transition: color 0.2s ease;
+}
+
+.toggle-password-visibility:hover {
+    color: var(--foreground);
+}
+
+.password-requirements {
+    font-size: 0.85rem;
+    color: var(--muted-foreground);
+    margin-top: 0.5rem;
+    text-align: left;
+    padding-left: 0.5rem;
+}
+
+.password-requirements p {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.password-requirements ul {
+    list-style: none;
+    padding: 0;
+}
+
+.password-requirements li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.password-requirements li::before {
+    content: '•'; /* Default bullet */
+    color: var(--muted-foreground);
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+.password-requirements li.valid {
+    color: var(--form-success);
+}
+
+.password-requirements li.valid::before {
+    content: '✓'; /* Checkmark for valid */
+    color: var(--form-success);
+    font-weight: bold;
+}
+
+.password-requirements li.invalid { /* Explicitly mark invalid if needed, though default handles it */
+    color: var(--form-error);
+}
+
+.password-requirements li.invalid::before {
+    content: '✗'; /* Cross for invalid */
+    color: var(--form-error);
+    font-weight: bold;
+}
+
+.terms-container {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start; /* Align checkbox with text top */
+    gap: 0.75rem;
+}
+
+.styled-checkbox {
+    /* Hide default checkbox */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--border);
+    border-radius: 0.25rem;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0; /* Prevent shrinking */
+    transition: all 0.2s ease;
+}
+
+.styled-checkbox:checked {
+    background-color: var(--study-accent);
+    border-color: var(--study-accent);
+}
+
+.styled-checkbox:checked::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-group label {
+    display: inline; /* Keep label text inline */
+    font-weight: normal;
+    margin-bottom: 0; /* Reset label margin */
+    color: var(--foreground);
+    font-size: 0.95rem;
+}
+
+.checkbox-group label .terms-link,
+.checkbox-group label .privacy-link {
+    color: var(--study-accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.checkbox-group label .terms-link:hover,
+.checkbox-group label .privacy-link:hover {
+    text-decoration: underline;
+}
+
+.form-status-message {
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    opacity: 0; /* Start hidden */
+    transition: opacity 0.3s ease;
+}
+
+.form-status-message.success {
+    background-color: rgba(22, 163, 74, 0.1); /* Green background */
+    color: var(--form-success);
+    opacity: 1;
+}
+
+.form-status-message.error {
+    background-color: rgba(220, 38, 38, 0.1); /* Red background */
+    color: var(--form-error);
+    opacity: 1;
+}
+
+.signup-footer {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    color: var(--muted-foreground);
+}
+
+.signup-footer a {
+    color: var(--study-accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.signup-footer a:hover {
+    text-decoration: underline;
+}

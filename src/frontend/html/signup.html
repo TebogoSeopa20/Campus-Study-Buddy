@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wits - Sign Up</title>
+    <meta name="description" content="Create your Wits Campus Study Buddy account.">
+    <meta name="author" content="Wits">
+    
+    <link rel="stylesheet" href="../css/styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <header class="logo">
+            <a href="index.html" class="logo-link">
+              <i class="fas fa-graduation-cap book-logo"></i>
+              Wits
+            </a>
+          </header>
+        <ul class="nav-links">
+          <li><a href="index.html#features">Features</a></li>
+          <li><a href="index.html#study-groups">Study Groups</a></li>
+          <li><a href="index.html#progress">Progress</a></li>
+          <li><a href="index.html#community">Community</a></li>
+        </ul>
+        <aside class="auth-buttons">
+            <a href="login.html">
+                <button class="btn btn-outline">Sign In</button>
+            </a>
+          <button class="btn btn-primary" onclick="location.href='signup.html'">Join Now</button>
+        </aside>
+        <button id="mobile-menu-button" class="mobile-menu">
+          <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+      
+    <!-- Mobile Navigation -->
+    <nav id="mobile-nav" class="mobile-nav">
+        <header class="mobile-nav-header">
+          <h1 class="logo">
+            <i class="fas fa-graduation-cap book-logo"></i>
+            Wits
+          </h1>
+          <button id="mobile-nav-close" class="mobile-nav-close">
+            <i class="fas fa-times"></i>
+          </button>
+        </header>
+        <ul class="mobile-nav-links">
+          <li><a href="index.html#features">Features</a></li>
+          <li><a href="index.html#study-groups">Study Groups</a></li>
+          <li><a href="index.html#progress">Progress</a></li>
+          <li><a href="index.html#community">Community</a></li>
+        </ul>
+        <aside class="mobile-auth-buttons">
+          <button class="btn btn-outline" onclick="location.href='login.html'">Sign In</button>
+          <button class="btn btn-primary" onclick="location.href='signup.html'">Join Now</button>
+        </aside>
+    </nav>
+
+    <main class="auth-main">
+        <section class="auth-container">
+            <article class="auth-card animate-on-scroll">
+                <h2>Create Your Account</h2>
+                <p class="signup-intro">Join Wits and connect with peers</p>
+
+                <form id="signup-form" class="auth-form" novalidate>
+                    <!-- Step 1: Role Selection -->
+                    <div class="form-step active" id="step1">
+                        <h3 class="step-title">Select Your Role</h3>
+                        <div class="form-group">
+                            <div class="role-selection">
+                                <div class="role-option">
+                                    <input type="radio" id="student" name="role" value="student" checked>
+                                    <label for="student">
+                                        <i class="fas fa-user-graduate"></i>
+                                        <span>Student</span>
+                                    </label>
+                                </div>
+                                <div class="role-option">
+                                    <input type="radio" id="tutor" name="role" value="tutor">
+                                    <label for="tutor">
+                                        <i class="fas fa-chalkboard-teacher"></i>
+                                        <span>Tutor</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <output class="error-message" for="role"></output>
+                        </div>
+                        
+                        <div class="step-separator">
+                            <span>Step 1 of 2</span>
+                        </div>
+                        
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-primary next-btn">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Personal Information -->
+                    <div class="form-step" id="step2">
+                        <h3 class="step-title">Personal Information</h3>
+                        
+                        <div class="form-group">
+                            <label for="signup-name">Full Name*</label>
+                            <input type="text" id="signup-name" placeholder="John Doe" class="styled-input" required>
+                            <output class="error-message" for="signup-name"></output>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signup-email">Email Address*</label>
+                            <input type="email" id="signup-email" placeholder="your.email@example.com" class="styled-input" required>
+                            <output class="error-message" for="signup-email"></output>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signup-phone">Contact Number</label>
+                            <input type="tel" id="signup-phone" placeholder="(+27) 63 123 0144" class="styled-input">
+                            <output class="error-message" for="signup-phone"></output>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signup-password">Password*</label>
+                            <div class="password-input-wrapper">
+                                <input type="password" id="signup-password" placeholder="Create a strong password" class="styled-input" required>
+                                <button type="button" class="toggle-password-visibility">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <output class="error-message" for="signup-password"></output>
+                            <div class="password-requirements">
+                                <p>Password must:</p>
+                                <ul>
+                                    <li id="length">Be at least 8 characters long</li>
+                                    <li id="uppercase">Contain at least 1 uppercase letter</li>
+                                    <li id="lowercase">Contain at least 1 lowercase letter</li>
+                                    <li id="number">Contain at least 1 number</li>
+                                    <li id="special">Contain at least 1 special character</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signup-confirm-password">Confirm Password*</label>
+                            <div class="password-input-wrapper">
+                                <input type="password" id="signup-confirm-password" placeholder="Confirm your password" class="styled-input" required>
+                                <button type="button" class="toggle-password-visibility">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <output class="error-message" for="signup-confirm-password"></output>
+                        </div>
+                        
+                        <div class="form-group terms-container">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="termsAgree" name="termsAgree" class="styled-checkbox" required>
+                                <label for="termsAgree">I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="privacy-link">Privacy Policy</a></label>
+                            </div>
+                            <output class="error-message" for="termsAgree"></output>
+                        </div>
+                        
+                        <div class="step-separator">
+                            <span>Step 2 of 2</span>
+                        </div>
+
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-outline prev-btn">Back</button>
+                            <button type="submit" class="btn btn-primary submit-btn" id="signup-button">Create Account</button>
+                        </div>
+                    </div>
+                    
+                    <div id="signup-error-message" class="error-message form-status-message"></div>
+                </form>
+                
+                <footer class="signup-footer">
+                    <p>Already have an account? <a href="login.html">Sign in here</a></p>
+                </footer>
+            </article>
+        </section>
+    </main>
+    
+    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/auth.js"></script>
+</body>
+</html>
