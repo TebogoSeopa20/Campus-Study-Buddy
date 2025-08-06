@@ -1,4 +1,6 @@
-// Mock the document.body and document.head to prevent "not implemented" errors
+// test/setup.js
+
+// Inject initial HTML to mock DOM structure
 document.body.innerHTML = `
 <div class="navbar">
   <div class="logo">Logo</div>
@@ -29,7 +31,7 @@ document.body.innerHTML = `
 </div>
 `;
 
-// Create a more reliable mock for IntersectionObserver
+// Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
   constructor(callback) {
     this.callback = callback;
@@ -40,24 +42,22 @@ global.IntersectionObserver = class IntersectionObserver {
       disconnect: jest.fn(() => this.elements.clear()),
       elements: this.elements
     };
-    
-    // Expose the mock for testing
+
     IntersectionObserver.mock = this.mockInstance;
   }
-  
+
   observe(element) {
     this.mockInstance.observe(element);
   }
-  
+
   unobserve(element) {
     this.mockInstance.unobserve(element);
   }
-  
+
   disconnect() {
     this.mockInstance.disconnect();
   }
-  
-  // Helper method to simulate intersection
+
   simulateIntersection(isIntersecting = true) {
     const entries = Array.from(this.elements).map(target => ({
       isIntersecting,
@@ -68,37 +68,37 @@ global.IntersectionObserver = class IntersectionObserver {
       rootBounds: null,
       time: Date.now()
     }));
-    
+
     this.callback(entries, this);
   }
 };
 
 // Mock window resize functionality
-window.resizeTo = function(width, height) {
-  Object.defineProperty(window, 'innerWidth', { 
-    writable: true, 
-    configurable: true, 
-    value: width 
+window.resizeTo = function (width, height) {
+  Object.defineProperty(window, 'innerWidth', {
+    writable: true,
+    configurable: true,
+    value: width
   });
-  
-  Object.defineProperty(window, 'innerHeight', { 
-    writable: true, 
-    configurable: true, 
-    value: height 
+
+  Object.defineProperty(window, 'innerHeight', {
+    writable: true,
+    configurable: true,
+    value: height
   });
-  
+
   window.dispatchEvent(new Event('resize'));
 };
 
-// Set initial window dimensions
+// Set initial window size
 window.innerWidth = 1024;
 window.innerHeight = 768;
 
-// Create a more reliable mock for element dimensions
+// Mock getBoundingClientRect
 const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
-Element.prototype.getBoundingClientRect = function() {
+Element.prototype.getBoundingClientRect = function () {
   const className = this.className || '';
-  
+
   if (className.includes('logo')) {
     return { width: 100, height: 50, top: 0, left: 0, right: 100, bottom: 50 };
   } else if (className.includes('nav-links')) {
@@ -108,7 +108,7 @@ Element.prototype.getBoundingClientRect = function() {
   } else if (className.includes('navbar')) {
     return { width: 800, height: 50, top: 0, left: 0, right: 800, bottom: 50 };
   }
-  
+
   return { width: 100, height: 100, top: 0, left: 0, right: 100, bottom: 100 };
 };
 
@@ -131,7 +131,7 @@ Object.defineProperty(Element.prototype, 'offsetHeight', {
   configurable: true
 });
 
-// Mock console methods to prevent test noise
+// Silence test noise
 global.console = {
   ...console,
   error: jest.fn(),
@@ -139,6 +139,14 @@ global.console = {
   log: jest.fn()
 };
 
-// Setup a more reliable DOMContentLoaded implementation
-document.readyState = 'loading';
+// ✅ Safe mock for document.readyState
+Object.defineProperty(document, 'readyState', {
+  get: () => 'loading',
+  configurable: true,
+});
+
+// Optional: simulate DOMContentLoaded
+document.dispatchEvent(new Event('DOMContentLoaded'));
+
+// Mock window.dispatchEvent
 window.dispatchEvent = jest.fn(window.dispatchEvent);
