@@ -25,6 +25,7 @@
     "express": "^5.1.0",
     "express-session": "^1.18.2",
     "jsonwebtoken": "^9.0.2",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "session": "^0.1.0"
   }
 }
