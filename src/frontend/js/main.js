@@ -164,7 +164,6 @@ export function initAllMobileFeatures() {
     };
 }
 
-// Auto-initialize when DOM is loaded (for backward compatibility)
 // This allows the module to work as a drop-in replacement
 if (typeof document !== 'undefined') {
     document.addEventListener('DOMContentLoaded', initAllMobileFeatures);
