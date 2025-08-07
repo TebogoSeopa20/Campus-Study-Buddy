@@ -48,7 +48,7 @@
         </aside>
     </nav>
 
-    <main class="auth-main">
+<main class="auth-main">
         <section class="auth-container">
             <article class="auth-card animate-on-scroll">
                 <h2>Create Your Account</h2>
@@ -79,7 +79,7 @@
                         </div>
                         
                         <div class="step-separator">
-                            <span>Step 1 of 2</span>
+                            <span>Step 1 of 3</span>
                         </div>
                         
                         <div class="form-navigation">
@@ -152,15 +152,78 @@
                             <output class="error-message" for="termsAgree"></output>
                         </div>
 
-                        
                         <div class="step-separator">
-                            <span>Step 2 of 2</span>
+                            <span>Step 2 of 3</span>
                         </div>
 
                         <div class="form-navigation">
                             <button type="button" class="btn btn-outline prev-btn">Back</button>
-                            <button type="submit" class="btn btn-primary submit-btn" id="signup-button" disabled>Create Account</button>
+                            <button type="button" class="btn btn-primary next-btn">Continue</button>
+                        </div>
+                    </div>
 
+                    <!-- Step 3: Profile Setup -->
+                    <div class="form-step" id="step3">
+                        <h3 class="step-title">Set Up Your Profile</h3>
+
+                        <div class="form-group">
+                            <label for="student-id">Student ID*</label>
+                            <input type="text" id="student-id" placeholder="12345678" class="styled-input" required>
+                            <output class="error-message" for="student-id"></output>
+                        </div>
+
+                        <br>
+
+                        <div class="form-group">
+                            <label for="modules">Modules / Courses*</label>
+                            <select id="modules" class="styled-input" multiple required>
+                                <option value="math">Mathematics</option>
+                                <option value="phys">Physics</option>
+                                <option value="cms">Computer Science</option>
+                                <option value="bio">Biology</option>
+                                <option value="bus">Business Management</option>
+                                <option value="law">Law</option>
+                                <option value="art">Art</option>
+                                <option value="econ">Economics</option>
+                                <option value="hlt">Health</option>
+                            </select>
+                            <small style="color: #666; font-size: 0.875rem;">Hold Ctrl/Cmd for multi-select</small>
+                            <output class="error-message" for="modules"></output>
+                        </div>
+
+                        
+                        <div class="form-group">
+                            <label for="custom-module">Other Course/Module</label>
+                            <input type="text" id="custom-module" class="styled-input" placeholder="e.g. Environmental Science">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="year">Year of Study*</label>
+                            <select id="year" class="styled-input" required>
+                                <option value="">Select year</option>
+                                <option value="1">1st Year</option>
+                                <option value="2">2nd Year</option>
+                                <option value="3">3rd Year</option>
+                                <option value="4">4th Year</option>
+                                <option value="postgrad">Postgraduate</option>
+                            </select>
+                            <output class="error-message" for="year"></output>
+                        </div>
+
+                        
+
+                        <div class="form-group">
+                            <label for="profile-photo">Upload Profile Photo</label>
+                            <input type="file" id="profile-photo" accept="image/*" class="styled-input">
+                        </div>
+                        
+                        <div class="step-separator">
+                            <span>Step 3 of 3</span>
+                        </div>
+                        
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-outline prev-btn">Back</button>
+                            <button type="submit" class="btn btn-primary submit-btn" id="signup-button">Create Account</button>
                         </div>
                     </div>
                     
@@ -173,52 +236,6 @@
             </article>
         </section>
     </main>
-
-        <!-- Footer -->
-    <footer class="footer">
-        <article class="container">
-            <section class="footer-content">
-                <article class="footer-column">
-                    <header class="footer-logo">
-                        <i class="fas fa-graduation-cap book-logo"></i>
-                        Wits
-                    </header>
-                    <p>Connecting students, enhancing learning, and building academic success through collaborative study partnerships.</p>
-                </article>
-                <article class="footer-column">
-                    <h3>For Students</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Find Study Partners</a></li>
-                        <li><a href="#">Join Study Groups</a></li>
-                        <li><a href="#">Track Progress</a></li>
-                        <li><a href="#">Plan Sessions</a></li>
-                    </ul>
-                </article>
-                <article class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Study Tips</a></li>
-                        <li><a href="#">Academic Guides</a></li>
-                        <li><a href="#">Success Stories</a></li>
-                        <li><a href="#">Help Center</a></li>
-                    </ul>
-                </article>
-                <article class="footer-column">
-                    <h3>Platform</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Support</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </article>
-            </section>
-            <footer class="footer-bottom">
-                <p>&copy; 2025 Wits Campus Study Buddy. All rights reserved.</p>
-            </footer>
-        </article>
-    </footer>
-
     
    
     <!-- Terms & Conditions Modal -->
@@ -250,9 +267,6 @@
     <button class="btn btn-primary" id="closePrivacyBtn">Close</button>
   </div>
 </div>
-
- <script type="module" src="../js/main.js"></script>
- <script type="module" src="../js/auth.js"></script>
 
 
 <script>
@@ -297,48 +311,12 @@
   });
 
   
-  const signupForm = document.getElementById("signup-form");
-  const signupBtn = document.getElementById("signup-button");
-
-  const nameInput = document.getElementById("signup-name");
-  const emailInput = document.getElementById("signup-email");
-  const passwordInput = document.getElementById("signup-password");
-  const confirmPasswordInput = document.getElementById("signup-confirm-password");
-  const termsCheckbox = document.getElementById("termsAgree");
-
-  // Enable submit button only when all inputs are valid
-  function validateSignupForm() {
-    const nameValid = nameInput.value.trim().length > 0;
-    const emailValid = emailInput.validity.valid;
-    const passwordValid = validatePassword(passwordInput.value);
-    const passwordsMatch = passwordInput.value === confirmPasswordInput.value && passwordInput.value !== "";
-    const termsChecked = termsCheckbox.checked;
-
-    const formValid = nameValid && emailValid && passwordValid && passwordsMatch && termsChecked;
-    signupBtn.disabled = !formValid;
-  }
-
-
-  function validatePassword(password) {
-    const length = password.length >= 8;
-    const upper = /[A-Z]/.test(password);
-    const lower = /[a-z]/.test(password);
-    const number = /[0-9]/.test(password);
-    const special = /[^A-Za-z0-9]/.test(password);
-    return length && upper && lower && number && special;
-  }
-
-  // Re-check when fields change
-  [nameInput, emailInput, passwordInput, confirmPasswordInput, termsCheckbox].forEach(input => {
-    input.addEventListener("input", validateSignupForm);
-    input.addEventListener("change", validateSignupForm);
-  });
-
-  // Initial state
-  validateSignupForm();
-
-
+  
 </script>
+ 
+ <script type="module" src="../js/main.js"></script>
+ <script type="module" src="../js/auth.js"></script>
+
 
 </body>
 </html>
