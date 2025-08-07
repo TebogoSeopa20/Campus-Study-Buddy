@@ -144,10 +144,14 @@
                         <div class="form-group terms-container">
                             <div class="checkbox-group">
                                 <input type="checkbox" id="termsAgree" name="termsAgree" class="styled-checkbox" required>
-                                <label for="termsAgree">I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="privacy-link">Privacy Policy</a></label>
+                                <label for="termsAgree">
+                                I agree to the <a href="#" class="terms-link">Terms of Service</a> and 
+                                <a href="#" class="privacy-link">Privacy Policy</a>
+                                </label>
                             </div>
                             <output class="error-message" for="termsAgree"></output>
                         </div>
+
                         
                         <div class="step-separator">
                             <span>Step 2 of 2</span>
@@ -155,7 +159,8 @@
 
                         <div class="form-navigation">
                             <button type="button" class="btn btn-outline prev-btn">Back</button>
-                            <button type="submit" class="btn btn-primary submit-btn" id="signup-button">Create Account</button>
+                            <button type="submit" class="btn btn-primary submit-btn" id="signup-button" disabled>Create Account</button>
+
                         </div>
                     </div>
                     
@@ -215,7 +220,125 @@
     </footer>
 
     
-    <script type="module" src="../js/main.js"></script>
-    <script type="module" src="../js/auth.js"></script>
+   
+    <!-- Terms & Conditions Modal -->
+<div id="termsModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <h2>Terms & Conditions</h2>
+    <p><strong>1. Academic Use:</strong> Campus Study Buddy is intended solely for academic and study-related collaboration among university students.</p>
+    <p><strong>2. User Conduct:</strong> Users must behave respectfully in chats and study groups. Abusive, offensive, or inappropriate behavior will result in account suspension.</p>
+    <p><strong>3. Privacy:</strong> Your personal data is used only to improve your academic experience and is not shared or sold.</p>
+    <p><strong>4. Shared Content:</strong> Ensure all shared notes or materials comply with your university's academic guidelines.</p>
+    <p><strong>5. Disclaimer:</strong> Campus Study Buddy does not guarantee academic outcomes. It’s a support tool, not a tutoring service.</p>
+    <p><strong>6. Updates:</strong> These terms may be revised. Continued use implies agreement to the latest version.</p>
+    <button class="btn btn-primary" id="agreeTermsBtn">I Agree</button>
+  </div>
+</div>
+
+<!-- Privacy Policy Modal -->
+<div id="privacyModal" class="modal">
+  <div class="modal-content">
+    <span class="close-privacy">&times;</span>
+    <h2>Privacy Policy</h2>
+    <p><strong>1. What We Collect:</strong> Your name, email, course info, study preferences, and usage patterns.</p>
+    <p><strong>2. Why:</strong> To match you with study partners, track study progress, and improve your experience.</p>
+    <p><strong>3. Sharing:</strong> Your data is private and never sold or shared with third parties.</p>
+    <p><strong>4. Cookies:</strong> Used only for login/session handling and analytics (non-identifiable).</p>
+    <p><strong>5. Control:</strong> You can request your data deletion by contacting support.</p>
+    <p><strong>6. Changes:</strong> Any updates to this policy will be posted in-app.</p>
+    <button class="btn btn-primary" id="closePrivacyBtn">Close</button>
+  </div>
+</div>
+
+ <script type="module" src="../js/main.js"></script>
+ <script type="module" src="../js/auth.js"></script>
+
+
+<script>
+  // Terms modal
+  const termsModal = document.getElementById("termsModal");
+  const termsLink = document.querySelector(".terms-link");
+  const agreeTermsBtn = document.getElementById("agreeTermsBtn");
+  const closeTermsBtn = document.querySelector(".close-button");
+
+  termsLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    termsModal.style.display = "block";
+  });
+
+  agreeTermsBtn.onclick = () => {
+    termsModal.style.display = "none";
+    const checkbox = document.getElementById("termsAgree");
+    checkbox.checked = true;
+    checkbox.dispatchEvent(new Event('change'));
+  };
+
+  closeTermsBtn.onclick = () => termsModal.style.display = "none";
+  window.addEventListener("click", (e) => {
+    if (e.target === termsModal) termsModal.style.display = "none";
+  });
+
+  // Privacy modal
+  const privacyModal = document.getElementById("privacyModal");
+  const privacyLink = document.querySelector(".privacy-link");
+  const closePrivacyBtn = document.getElementById("closePrivacyBtn");
+  const closePrivacyX = document.querySelector(".close-privacy");
+
+  privacyLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    privacyModal.style.display = "block";
+  });
+
+  closePrivacyBtn.onclick = () => privacyModal.style.display = "none";
+  closePrivacyX.onclick = () => privacyModal.style.display = "none";
+  window.addEventListener("click", (e) => {
+    if (e.target === privacyModal) privacyModal.style.display = "none";
+  });
+
+  
+  const signupForm = document.getElementById("signup-form");
+  const signupBtn = document.getElementById("signup-button");
+
+  const nameInput = document.getElementById("signup-name");
+  const emailInput = document.getElementById("signup-email");
+  const passwordInput = document.getElementById("signup-password");
+  const confirmPasswordInput = document.getElementById("signup-confirm-password");
+  const termsCheckbox = document.getElementById("termsAgree");
+
+  // Enable submit button only when all inputs are valid
+  function validateSignupForm() {
+    const nameValid = nameInput.value.trim().length > 0;
+    const emailValid = emailInput.validity.valid;
+    const passwordValid = validatePassword(passwordInput.value);
+    const passwordsMatch = passwordInput.value === confirmPasswordInput.value && passwordInput.value !== "";
+    const termsChecked = termsCheckbox.checked;
+
+    const formValid = nameValid && emailValid && passwordValid && passwordsMatch && termsChecked;
+    signupBtn.disabled = !formValid;
+  }
+
+
+  function validatePassword(password) {
+    const length = password.length >= 8;
+    const upper = /[A-Z]/.test(password);
+    const lower = /[a-z]/.test(password);
+    const number = /[0-9]/.test(password);
+    const special = /[^A-Za-z0-9]/.test(password);
+    return length && upper && lower && number && special;
+  }
+
+  // Re-check when fields change
+  [nameInput, emailInput, passwordInput, confirmPasswordInput, termsCheckbox].forEach(input => {
+    input.addEventListener("input", validateSignupForm);
+    input.addEventListener("change", validateSignupForm);
+  });
+
+  // Initial state
+  validateSignupForm();
+
+
+</script>
+
 </body>
 </html>
