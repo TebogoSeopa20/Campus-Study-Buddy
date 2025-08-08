@@ -1,5 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const { createClient } = require('@supabase/supabase-js');
+const axios = require('axios');
+const usersRouter = require('./backend/api/users-api');
 const app = express();
 const PORT = 3000;
 
