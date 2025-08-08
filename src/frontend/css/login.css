@@ -7,10 +7,11 @@
     --border-color: #e5e7eb;
     --error-color: #dc2626;
     --success-color: #16a34a;
-    --background-color: #f9fafb;
+    --background-color: #ffffff; /* Changed from #f9fafb */
     --white: #ffffff;
     --google-border: #dadce0;
     --google-hover: #f8f9fa;
+    --study-light-blue: #dbeafe; /* Added to match signup */
 }
 
 * {
@@ -19,15 +20,17 @@
     box-sizing: border-box;
 }
 
+/* Update the body background to match signup page */
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--background-color);
+    background: linear-gradient(135deg, #f8fafc 0%, var(--study-light-blue) 100%); /* Added gradient */
     color: var(--text-color);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     line-height: 1.5;
 }
+
 
 main {
     flex: 1;
@@ -83,16 +86,17 @@ main {
 }
 
 /* Form Fieldset Styles */
+/* Reduce spacing between form elements */
 .auth-form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem; /* Reduced from 1.5rem */
 }
 
 .form-fieldset {
     position: relative;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
+    margin-bottom: 0.5rem; /* Reduced from 1.5rem */
+    padding-bottom: 0.5rem; /* Reduced from 1.5rem */
     border: none;
 }
 
