@@ -48,26 +48,51 @@
         </aside>
     </nav>
 
+    <!-- Privacy Policy Modal -->
+<div id="privacyModal" class="modal">
+  <div class="modal-content">
+    <span class="close-privacy">&times;</span>
+    <h2>Privacy Policy</h2>
+    <p><strong>1. Information Collection:</strong> We collect your email, course details, and study preferences to enhance your experience. No sensitive personal info is collected.</p>
+    <p><strong>2. Use of Data:</strong> Your data is used to match you with study partners, track progress, and suggest study groups. We do not sell or rent your data to third parties.</p>
+    <p><strong>3. Storage:</strong> All user data is stored securely and is only accessible to authorized system services.</p>
+    <p><strong>4. Cookies:</strong> We may use cookies to maintain your login session and track app usage anonymously.</p>
+    <p><strong>5. Third-Party Services:</strong> No third-party tracking or analytics is used without your consent.</p>
+    <p><strong>6. Updates:</strong> This privacy policy may be updated. Continued use of the platform constitutes acceptance of the changes.</p>
+    <button class="btn btn-primary" id="closePrivacyBtn">Close</button>
+  </div>
+</div>
+
+
     <main class="auth-main">
-        <section class="auth-container">
-            <article class="auth-card animate-on-scroll">
-                <h2>Sign In to Your Account</h2>
-                <form id="login-form" class="auth-form">
-                    <div class="form-group">
-                        <label for="login-email">Email Address</label>
-                        <input type="email" id="login-email" placeholder="Enter your email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="login-password">Password</label>
-                        <input type="password" id="login-password" placeholder="Enter your password" required>
-                    </div>
-                    <p id="login-error-message" class="error-message"></p>
-                    <button type="submit" class="btn btn-primary btn-full-width" id="login-button">Sign In</button>
-                </form>
-                <p class="auth-switch">Don't have an account? <a href="../html/signup.html">Sign Up</a></p>
-            </article>
-        </section>
-    </main>
+    <section class="auth-container">
+        <article class="auth-card animate-on-scroll">
+            <h2>Sign In to Your Account</h2>
+            <form id="login-form" class="auth-form" novalidate>
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password" required minlength="6">
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="terms-checkbox" required>
+                    <label for="terms-checkbox">
+                    I agree to the <a href="terms.html">Terms & Conditions</a> and 
+                    <a href="privacy.html">Privacy Policy</a>
+                    </label>
+
+                </div>
+                <p id="login-error-message" class="error-message"></p>
+                <button type="submit" class="btn btn-primary btn-full-width" id="login-button" disabled>Sign In</button>
+            </form>
+            <p class="auth-switch">Don't have an account? <a href="../html/signup.html">Sign Up</a></p>
+        </article>
+    </section>
+</main>
+
 
     <!-- Footer -->
     <footer class="footer">
@@ -114,7 +139,98 @@
         </article>
     </footer>
 
+    <!-- Terms & Conditions Modal -->
+<div id="termsModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <h2>Terms & Conditions</h2>
+    <p><strong>1. Academic Use:</strong> Campus Study Buddy is intended solely for academic and study-related collaboration among university students.</p>
+    <p><strong>2. User Conduct:</strong> Users must behave respectfully in chats and study groups. Abusive, offensive, or inappropriate behavior will result in account suspension.</p>
+    <p><strong>3. Privacy:</strong> We respect your privacy. Your personal data (such as name, study preferences, and progress) is used only to improve your academic experience and will never be sold.</p>
+    <p><strong>4. Content Sharing:</strong> Users may share notes and materials within study groups. You are responsible for ensuring that shared content complies with university guidelines.</p>
+    <p><strong>5. Disclaimer:</strong> While we help facilitate study sessions and progress tracking, Campus Study Buddy does not guarantee academic performance outcomes.</p>
+    <p><strong>6. Updates:</strong> These terms may be updated occasionally. Continued use of the platform implies agreement to the latest terms.</p>
+    <button class="btn btn-primary" id="agreeButton">I Agree</button>
+  </div>
+</div>
+
     <script type="module" src="../js/main.js"></script>
     <script type="module" src="../js/auth.js"></script>
+
+    <script>
+    const form = document.getElementById('login-form');
+    const email = document.getElementById('login-email');
+    const password = document.getElementById('login-password');
+    const terms = document.getElementById('terms-checkbox');
+    const loginBtn = document.getElementById('login-button');
+
+    function validateForm() {
+        const valid = email.checkValidity() &&
+                      password.checkValidity() &&
+                      terms.checked;
+        loginBtn.disabled = !valid;
+    }
+
+    [email, password, terms].forEach(input => {
+        input.addEventListener('input', validateForm);
+        input.addEventListener('change', validateForm);
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Simulate login
+        loginBtn.textContent = "Signing In...";
+        setTimeout(() => {
+            // Redirect after "success"
+            window.location.href = "dashboard.html"; // Replace with your actual dashboard page
+        }, 1200);
+    });
+      const modal = document.getElementById("termsModal");
+  const agreeBtn = document.getElementById("agreeButton");
+  const closeBtn = document.querySelector(".close-button");
+
+  // Show modal on link click
+  document.querySelectorAll("a[href='terms.html']").forEach(link => {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      modal.style.display = "block";
+    });
+  });
+
+  // Close modal
+  closeBtn.onclick = () => modal.style.display = "none";
+  window.onclick = (event) => {
+    if (event.target == modal) modal.style.display = "none";
+  };
+
+  // Handle agree action
+  agreeBtn.onclick = () => {
+    modal.style.display = "none";
+    document.getElementById("terms-checkbox").checked = true;
+    document.getElementById("terms-checkbox").dispatchEvent(new Event('change'));
+  };
+
+  const privacyModal = document.getElementById("privacyModal");
+  const closePrivacyBtn = document.getElementById("closePrivacyBtn");
+  const closePrivacyX = document.querySelector(".close-privacy");
+
+  // Show privacy modal on link click
+  document.querySelectorAll("a[href='privacy.html']").forEach(link => {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      privacyModal.style.display = "block";
+    });
+  });
+
+  // Close privacy modal
+  closePrivacyBtn.onclick = () => privacyModal.style.display = "none";
+  closePrivacyX.onclick = () => privacyModal.style.display = "none";
+  window.addEventListener('click', function(event) {
+    if (event.target === privacyModal) {
+      privacyModal.style.display = "none";
+    }
+  });
+</script>
+
 </body>
 </html>
