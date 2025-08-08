@@ -14,6 +14,7 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     'src/frontend/js/main.js',
+    '/src/frontend/js/login.js'
   ],
 
   coverageDirectory: 'coverage',
