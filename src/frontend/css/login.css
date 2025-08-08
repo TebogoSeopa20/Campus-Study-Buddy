@@ -5,31 +5,30 @@
 :root {
   --background: #ffffff;
   --foreground: #1e293b;
-  --primary: #1e40af;
+  --primary: #1e293b;
   --primary-foreground: #f8fafc;
   --secondary: #f1f5f9;
   --secondary-foreground: #1e293b;
-  --muted: #f8fafc;
+  --muted: #f1f5f9;
   --muted-foreground: #64748b;
-  --accent: #dbeafe;
-  --accent-foreground: #1e40af;
+  --accent: #f1f5f9;
+  --accent-foreground: #1e293b;
   --destructive: #ef4444;
   --destructive-foreground: #f8fafc;
   --border: #e2e8f0;
   --input: #e2e8f0;
-  --ring: #1e40af;
+  --ring: #020617;
   --radius: 0.5rem;
-  --study-blue: #1e40af;
-  --study-gold: #fbbf24;
-  --study-light-blue: #dbeafe;
-  --study-dark: #1e293b;
-  --study-accent: #3b82f6;
+  --research-blue: #1E40AF;
+  --research-purple: #6D28D9;
+  --research-light: #EEF2FF;
+  --research-dark: #1E293B;
+  --research-accent: #4F46E5;
   --form-error: #dc2626;
   --form-success: #16a34a;
-  --input-focus: rgba(59, 130, 246, 0.1);
+  --input-focus: rgba(79, 70, 229, 0.1);
   --input-placeholder: #94a3b8;
 }
-
 
 * {
   box-sizing: border-box;
@@ -410,7 +409,7 @@ h1, h2, h3, h4, h5 {
 
 .footer {
   padding: 4rem 2rem 2rem;
-  background-color: var(--study-dark);
+  background-color: var(--primary);
   color: var(--primary-foreground);
 }
 
@@ -428,17 +427,11 @@ h1, h2, h3, h4, h5 {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: white;
-}
-
-.footer-logo .book-logo {
-  color: var(--study-gold);
 }
 
 .footer-column h3 {
   margin-bottom: 1.5rem;
   font-size: 1.2rem;
-  color: white;
 }
 
 .footer-links {
@@ -456,7 +449,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .footer-links a:hover {
-  color: var(--study-gold);
+  color: white;
 }
 
 .footer-bottom {
