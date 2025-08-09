@@ -1,4 +1,4 @@
-// Updated login.js with session storage handling
+// Updated login.js with proper dashboard redirection for students and tutors
 // DOM Elements
 const loginForm = document.getElementById('loginForm');
 const emailInput = document.getElementById('email');
@@ -113,22 +113,19 @@ function createResendLink(email) {
 
 /**
  * Get dashboard URL based on user role
- * @param {string} role - User role (admin, reviewer, researcher)
+ * @param {string} role - User role (student, tutor)
  * @returns {string} - URL path to appropriate dashboard
  */
 function getDashboardUrlByRole(role) {
   // Normalize role to lowercase for case-insensitive comparison
-  const normalizedRole = role.toLowerCase();
+  const normalizedRole = role ? role.toLowerCase() : 'student';
   
   switch (normalizedRole) {
-    case 'admin':
-      return '/roles/admin/dashboard.html';
-    case 'reviewer':
-      return '/roles/reviewer/dashboard.html';
-    case 'researcher':
-      return '/roles/researcher/dashboard.html';
+    case 'tutor':
+      return '../html/tutor-dash.html';
+    case 'student':
     default:
-      return '/roles/researcher/dashboard.html'; // Default fallback
+      return '../html/student-dash.html';
   }
 }
 
@@ -142,9 +139,11 @@ function storeUserInSession(user) {
     sessionStorage.setItem('user', JSON.stringify({
       id: user.id,
       email: user.email,
-      role: user.user_metadata?.role || 'researcher',
+      role: user.user_metadata?.role || 'student', // Default to student
       name: user.user_metadata?.name || '',
-      picture: user.user_metadata?.picture || ''
+      faculty: user.user_metadata?.faculty || '',
+      course: user.user_metadata?.course || '',
+      year_of_study: user.user_metadata?.year_of_study || ''
     }));
     
     // Store tokens in sessionStorage
@@ -199,10 +198,8 @@ if (loginForm) {
       // Handle response data with proper error handling
       let data;
       try {
-        // Try to parse the response as JSON
         data = await response.json();
       } catch (parseError) {
-        // If parsing fails, create a user-friendly error message based on status
         console.error('Response parsing error:', parseError);
         
         if (response.status === 400) {
@@ -210,7 +207,6 @@ if (loginForm) {
         } else if (response.status === 401) {
           throw new Error('Invalid login credentials. Please check your email and password.');
         } else if (response.status === 403) {
-          // Create resend verification link for the user
           createResendLink(emailInput.value);
           throw new Error('Your email has not been verified. Please check your inbox for verification email.');
         } else {
@@ -218,16 +214,12 @@ if (loginForm) {
         }
       }
       
-      // If we got JSON but the response is not OK
       if (!response.ok) {
-        // Special handling for unverified email
         if (response.status === 403 && data.emailVerified === false) {
-          // Create resend verification link
           createResendLink(emailInput.value);
           throw new Error('Your email has not been verified. Please verify your email before logging in.');
         }
         
-        // Handle other common error cases
         if (response.status === 404) {
           throw new Error('Account not found. Please check your email or sign up for a new account.');
         } else if (response.status === 401) {
@@ -245,7 +237,7 @@ if (loginForm) {
       formStatus.className = 'form-status-message success';
       
       // Get the user's role from the user metadata
-      const userRole = data.user?.user_metadata?.role || 'researcher';
+      const userRole = data.user?.user_metadata?.role || 'student';
       
       // Get the appropriate dashboard URL based on role
       const dashboardUrl = getDashboardUrlByRole(userRole);

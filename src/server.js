@@ -217,7 +217,7 @@ app.get('/signupGoogle', (req, res) => {
         if (err) {
           console.error(`Error saving session: ${err.message}`);
         }
-        res.sendFile(path.join(__dirname, 'public', 'signup.html'));
+        res.sendFile(path.join(__dirname, 'frontend', 'html', 'signup.html'));
       });
       return;
     } catch (err) {
