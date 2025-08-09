@@ -572,17 +572,27 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Collect form data
         const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value,
-            confirmPassword: document.getElementById('confirmPassword').value,
-            phone: document.getElementById('phone').value,
-            role: document.querySelector('input[name="role"]:checked').value,
-            faculty: document.getElementById('faculty').value,
-            course: document.getElementById('course').value,
-            year_of_study: document.getElementById('year_of_study').value,
-            terms_agreed: document.getElementById('termsAgree').checked
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        confirmPassword: document.getElementById('confirmPassword').value,
+        phone: document.getElementById('phone').value,
+        role: document.querySelector('input[name="role"]:checked').value,
+        faculty: document.getElementById('faculty').value,
+        course: document.getElementById('course').value,
+        year_of_study: document.getElementById('yearOfStudy').value, // Match server expectation
+        terms_agreed: document.getElementById('termsAgree').checked
         };
+        
+        if (!formData.terms_agreed) {
+        showError(document.getElementById('termsAgree'), 'You must agree to the terms and conditions');
+        return;
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+        showError(document.getElementById('confirmPassword'), 'Passwords do not match');
+        return;
+        }
         
         fetch('/api/signup', {
             method: 'POST',
@@ -660,12 +670,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(error => {
-            console.error('Signup error:', error);
-            if (formStatus) {
-                formStatus.textContent = 'An error occurred during signup. Please try again later.';
-                formStatus.className = 'form-status-message error';
-                formStatus.style.display = 'block';
-            }
+        console.error('Signup error:', error);
+        if (formStatus) {
+            formStatus.textContent = error.message || 'An error occurred during signup. Please try again later.';
+            formStatus.className = 'form-status-message error';
+            formStatus.style.display = 'block';
+        }
+        
+        // Scroll to the status message
+        formStatus.scrollIntoView({ behavior: 'smooth', block: 'center' });
         })
         .finally(() => {
             if (submitButton) {
