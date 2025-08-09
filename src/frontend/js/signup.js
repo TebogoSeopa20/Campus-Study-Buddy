@@ -939,26 +939,6 @@ if (facultySelect && courseSelect) {
     });
 }
 
-// Student ID validation (numbers only)
-const studentIdInput = document.getElementById('studentId');
-if (studentIdInput) {
-    studentIdInput.addEventListener('input', function() {
-        // Only allow numbers
-        const value = this.value;
-        const sanitizedValue = value.replace(/[^0-9]/g, '');
-        
-        if (value !== sanitizedValue) {
-            this.value = sanitizedValue;
-        }
-        
-        // Validate length (typically 9 digits for Wits)
-        if (sanitizedValue.length > 0 && sanitizedValue.length !== 7) {
-            showError(this, 'Student ID must be 7 digits');
-        } else if (sanitizedValue.length === 7) {
-            clearError(this);
-        }
-    });
-}
 
 });
 document.addEventListener('DOMContentLoaded', function() {
@@ -1081,35 +1061,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Enhanced checkbox interaction
-    const termsLabel = document.querySelector('.terms-label');
-    if (termsLabel) {
-        termsLabel.addEventListener('click', function(e) {
-            // Don't toggle if clicking on links
-            if (e.target.tagName.toLowerCase() === 'button' || e.target.closest('button')) {
-                return;
-            }
-            termsCheckbox.checked = !termsCheckbox.checked;
-            termsCheckbox.dispatchEvent(new Event('change'));
-        });
-    }
-    
-    // Checkbox change event for visual feedback
-    if (termsCheckbox) {
-        termsCheckbox.addEventListener('change', function() {
-            const formGroup = this.closest('.form-group');
-            if (this.checked) {
-                formGroup.classList.add('valid');
-                formGroup.classList.remove('error');
-            } else {
-                formGroup.classList.remove('valid');
-            }
-        });
-    }
-    
-    // Smooth scrolling for modal content
-    const modalBodies = document.querySelectorAll('.modal-body');
-    modalBodies.forEach(body => {
-        body.style.scrollBehavior = 'smooth';
-    });
+
 });
+// Enhanced Terms & Privacy Policy Modal Functionality - Fixed Scrolling
+
