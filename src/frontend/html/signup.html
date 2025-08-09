@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wits - Sign Up</title>
-    <meta name="description" content="Join CollabNexus Research Hub - Connect with researchers who share your passion and complement your expertise">
+    <meta name="description" content="Join Wits Campus Study Buddy - Connect with like minded students to enhance your academic journey and achieve more together">
     <meta name="author" content="CollabNexus">
     
-    <meta property="og:title" content="Sign Up - CollabNexus Research Hub">
-    <meta property="og:description" content="Join CollabNexus Research Hub - Connect with researchers who share your passion and complement your expertise">
+    <meta property="og:title" content="Sign Up - Wits Campus Studdy Buddy">
+    <meta property="og:description" content="Join Wits Campus Study Buddy - Connect with like minded students to enhance your academic journey and achieve more together">
     <meta property="og:type" content="website">
     
     <link rel="stylesheet" href="../css/signup.css">
@@ -62,15 +62,15 @@
                     <legend class="step-title">Select Your Role</legend>
                     <section class="role-selection">
                         <section class="role-option">
-                            <input type="radio" id="researcher" name="role" value="researcher" checked>
-                            <label for="researcher">
+                            <input type="radio" id="student" name="role" value="student" checked>
+                            <label for="student">
                                 <i class="fas fa-user-graduate"></i>
                                 <span>Student</span>
                             </label>
                         </section>
                         <section class="role-option">
-                            <input type="radio" id="reviewer" name="role" value="reviewer">
-                            <label for="reviewer">
+                            <input type="radio" id="tutor" name="role" value="tutor">
+                            <label for="tutor">
                                 <i class="fas fa-chalkboard-teacher"></i>
                                 <span>Tutor</span>
                             </label>
@@ -138,13 +138,6 @@
                 <!-- Step 3: Academic Information -->
                 <fieldset class="form-step" id="step3">
                     <legend class="step-title">Academic Information</legend>
-                    
-                    <!-- Student ID Field -->
-                    <fieldset class="form-group">
-                        <label for="studentId">Student ID*</label>
-                        <input type="text" id="studentId" name="studentId" placeholder="e.g., 123456789" class="styled-input" required>
-                        <output class="error-message" for="studentId"></output>
-                    </fieldset>
                     
                     <!-- Faculty Selection -->
                     <fieldset class="form-group">
@@ -268,16 +261,20 @@
                                     </section>
 
                                     <div class="terms-footer">
-                                        <p><strong>Last updated:</strong> January 2025</p>
+                                        <p><strong>Last updated:</strong> August 2025</p>
                                         <p>By clicking "I agree," you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</p>
                                     </div>
-                                </div>
-                            </div>
-                            
-                            <footer class="modal-footer">
+                                                                <footer class="modal-footer">
                                 <button type="button" class="btn btn-outline" id="closeTermsBtn">Close</button>
                                 <button type="button" class="btn btn-primary" id="acceptTermsBtn">I Agree</button>
                             </footer>
+                                <hr>
+                                <p><small><em>Last updated:</em> August 2025</small></p>
+                                <p><small><em>Last updated:</em> August 2025</small></p>
+                                </div>
+                            </div>
+                            
+
                         </div>
                     </div>
 
@@ -350,8 +347,13 @@
 
                                     <div class="privacy-footer">
                                         <p><strong>Contact:</strong> privacy@wits.ac.za</p>
-                                        <p><strong>Last updated:</strong> January 2025</p>
+                                        <p><strong>Phone:</strong> +27 11 717 1000</p>
+                                        <p><strong>Office Hours:</strong> Monday – Friday, 8:00 AM – 4:30 PM</p>
+                                        <p><strong>Address:</strong> University of the Witwatersrand, 1 Jan Smuts Avenue, Braamfontein 2000, Johannesburg, South Africa</p>
+                                        <p><a href="/privacy-policy.html" target="_blank">View Full Privacy Policy</a></p>
+                                        <p><strong>Last updated:</strong> August 2025</p>
                                     </div>
+
                                 </div>
                             </div>
                             
@@ -437,6 +439,7 @@
 
     <script src="../js/main.js"></script>
     <script src="../js/signup.js"></script>
+    <script src="../js/terms-and-conditions.js"></script>
     <script src="../js/auth.js"></script>
 </body>
 </html>
